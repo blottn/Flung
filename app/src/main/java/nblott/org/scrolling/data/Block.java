@@ -1,5 +1,6 @@
 package nblott.org.scrolling.data;
 
+import android.graphics.Canvas;
 import android.view.View;
 
 /**
@@ -59,5 +60,9 @@ public class Block {
 
     public void setH(int h) {
         this.h = h;
+    }
+
+    public void draw(Canvas canvas) {
+
     }
 }
