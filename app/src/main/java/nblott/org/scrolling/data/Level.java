@@ -32,9 +32,6 @@ public class Level {
 
     //start drawing
     public void draw(Canvas canvas) {
-//        Paint paint = new Paint();
-//        paint.setARGB(255,0,255,0);
-//        canvas.drawLine(10,10,100,100,paint);
         fillBackground(canvas);
         player.draw(canvas);
         for (Block block : blockList) {

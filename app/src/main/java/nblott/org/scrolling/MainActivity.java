@@ -29,14 +29,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SurfaceView surface = (SurfaceView) findViewById(R.id.surface);
-
-        current = new Level(ContextCompat.getColor(this, R.color.levelBG),getResources().getDrawable(R.drawable.player, null), new Block[]{new Block(0,0,100,100)});
+        //Hardcoded debugging level
+        current = new Level(ContextCompat.getColor(this, R.color.levelBG),getResources().getDrawable(R.drawable.player, null), new Block[]{new Block(500,0,100,100)});
 
         surface.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(final SurfaceHolder holder) {
                 // ready to start drawing. Launch ticker
-
                 final Handler mHandler = new Handler();
                 mHandler.post(new Runnable() {
                     @Override
@@ -54,17 +53,7 @@ public class MainActivity extends AppCompatActivity {
             public void surfaceDestroyed(SurfaceHolder holder) {
             }
         });
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    private void slideLeft(Level level) {
-        for (Block block : level.blockList) {
-            block.getView().setX(block.getView().getX() - 2);
-        }
     }
 
     private void tick(SurfaceHolder holder) {

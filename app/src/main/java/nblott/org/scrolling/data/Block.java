@@ -1,13 +1,16 @@
 package nblott.org.scrolling.data;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.view.View;
 
 /**
  * Created by Nick on 13/09/2017.
  */
 
-public class Block {
+public class Block{
 
     private int x, y ,w ,h;
     private View view;
@@ -63,6 +66,12 @@ public class Block {
     }
 
     public void draw(Canvas canvas) {
-
+        Paint paint = new Paint();
+        paint.setColor(Color.GREEN);
+        int left = x;
+        int right = x + w;
+        int top = canvas.getHeight() - y - h;
+        int bottom = canvas.getHeight() -y;
+        canvas.drawRect(left, top, right, bottom, paint);
     }
 }
