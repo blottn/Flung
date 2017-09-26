@@ -27,7 +27,7 @@ public class Level {
             ids.add(IdGen.getNext());
         }
         this.bgCol = bgCol;
-        player = new Player(playerDrawable);
+        player = new Player(playerDrawable, 0,0,20,20);
     }
 
     //start drawing
