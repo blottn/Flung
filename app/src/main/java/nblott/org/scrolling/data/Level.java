@@ -3,6 +3,7 @@ package nblott.org.scrolling.data;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +16,10 @@ public class Level {
 
     public List<Block> blockList;
     public List<Integer> ids;
-
+    private Player player;
     private int bgCol;
 
-    public Level(int bgCol, Block... blocks) {
+    public Level(int bgCol, Drawable playerDrawable, Block... blocks) {
         blockList = new ArrayList<>();
         ids = new ArrayList<>();
         for (Block block : blocks) {
@@ -26,6 +27,7 @@ public class Level {
             ids.add(IdGen.getNext());
         }
         this.bgCol = bgCol;
+        player = new Player(playerDrawable);
     }
 
     //start drawing
@@ -34,6 +36,7 @@ public class Level {
 //        paint.setARGB(255,0,255,0);
 //        canvas.drawLine(10,10,100,100,paint);
         fillBackground(canvas);
+        player.draw(canvas);
         for (Block block : blockList) {
             block.draw(canvas);
         }

@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         SurfaceView surface = (SurfaceView) findViewById(R.id.surface);
 
-        current = new Level(ContextCompat.getColor(this, R.color.levelBG), new Block[]{new Block(0,0,100,100)});
+        current = new Level(ContextCompat.getColor(this, R.color.levelBG),getResources().getDrawable(R.drawable.player, null), new Block[]{new Block(0,0,100,100)});
 
         surface.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
