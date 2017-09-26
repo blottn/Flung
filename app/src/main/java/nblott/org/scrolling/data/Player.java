@@ -21,6 +21,7 @@ public class Player {
         this.h = h;
     }
 
+
     public void draw(Canvas canvas) {
         int left = x;
         int right = x + w;
@@ -28,5 +29,37 @@ public class Player {
         int bottom = canvas.getHeight() -y;
         drawable.setBounds(left,top,right,bottom);
         drawable.draw(canvas);
+    }
+
+    public int getH() {
+        return h;
+    }
+
+    public int getW() {
+        return w;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setH(int h) {
+        this.h = h;
+    }
+
+    public void setW(int w) {
+        this.w = w;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }
