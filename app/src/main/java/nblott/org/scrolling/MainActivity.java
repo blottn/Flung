@@ -57,12 +57,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void tick(SurfaceHolder holder) {
-
         // hardcoded sliding
         for (Block block : current.blockList) {
             block.setX(block.getX() - 3);
         }
-
 
         Canvas canvas = holder.lockCanvas();
 

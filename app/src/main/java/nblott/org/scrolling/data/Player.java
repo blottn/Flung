@@ -13,7 +13,7 @@ public class Player {
     private Drawable drawable;
 
     private int x,y,w,h;
-    private int vx, vy;
+    private Vector vel;
     private Level parent;
     public Player(Level parent, Drawable drawable, int x, int y, int w, int h) {
         this.drawable = drawable;
@@ -21,33 +21,29 @@ public class Player {
         this.y = y;
         this.w = w;
         this.h = h;
-        this.vx = 4;
-        this.vy = 8;
+        this.vel = new Vector(4,8);
         this.parent = parent;
     }
 
     public void physTick(Canvas canvas) {
 
-//        for (Block block : parent.blockList) {
-//            if (block.getX() <= x + w && x + w <= block.getX() + block.getW() || x >= block.getX() && x <= block.getX() + block.getW()) {
-//                // if bottom is below top but above bottom push up
-//            }
-//        }
-
-        y = y + vy;
-        x = x + vx;
+        y = y + (int) vel.getY();
+        x = x + (int) vel.getX();
 
         // check is on ground
         if (y < 0) {
+            if (vel.getX() > 0) {
+                vel.setX(vel.getX() - 1);
+            }
             //below ground
-            vy = -vy;
-            vy  /=2;
+            vel.setY(-vel.getY());
+            vel.setY(vel.getY()/2);
             y = 0;
         } else if (y > 0) {
-            vy -= 2;
+            vel.setY(vel.getY() - 2);
         } else {// y == 0 ie is on ground
-            if (vx > 0) {
-                vx -= 1;
+            if (vel.getX() > 0) {
+                vel.setX(vel.getX() - 1);
             }
         }
     }
