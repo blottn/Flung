@@ -6,17 +6,25 @@ package nblott.org.scrolling.data;
 
 public class Vector {
 
+    private final double MAX_X;
+    private final double MAX_Y;
+
     private double x;
     private double y;
 
-    public Vector(double x, double y) {
-        this.x = x;
-        this.y = y;
+    public Vector() {
+        this(0,0);
     }
 
-    public Vector() {
-        x = 0;
-        y = 0;
+    public Vector(double x, double y) {
+        this(x,y, Double.MAX_VALUE, Double.MAX_VALUE);
+    }
+
+    public Vector(double x, double y, double maxX, double maxY) {
+        this.x = x;
+        this.y = y;
+        this.MAX_X = maxX;
+        this.MAX_Y = maxY;
     }
 
     public double getMag() {
@@ -28,7 +36,12 @@ public class Vector {
     }
 
     public void setX(double x) {
-        this.x = x;
+        if (x > MAX_X) {
+            this.x = MAX_X;
+        }
+        else {
+            this.x = x;
+        }
     }
 
     public double getY() {
@@ -36,6 +49,11 @@ public class Vector {
     }
 
     public void setY(double y) {
-        this.y = y;
+        if (y > MAX_Y) {
+            this.y = MAX_Y;
+        }
+        else {
+            this.y = y;
+        }
     }
 }
