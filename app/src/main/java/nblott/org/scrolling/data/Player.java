@@ -38,9 +38,15 @@ public class Player {
             //below ground
             vel.setY(-vel.getY());
             vel.setY(vel.getY()/2);
+            if (vel.getY() < 0.5 && vel.getY() > -0.5) {
+                vel.setY(0);
+            }
             y = 0;
         } else if (y > 0) {
             vel.setY(vel.getY() - 2);
+            if (vel.getY() < 0.5 && vel.getY() > -0.5) {
+                vel.setY(0);
+            }
         } else {// y == 0 ie is on ground
             if (vel.getX() > 0) {
                 vel.setX(vel.getX() - 1);
