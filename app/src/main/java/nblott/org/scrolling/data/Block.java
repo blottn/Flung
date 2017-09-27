@@ -14,6 +14,8 @@ public class Block{
 
     private int x, y ,w ,h;
     private View view;
+    private Level parent;
+
     public Block(int x, int y, int w, int h) {
         this.x = x;
         this.y = y;
@@ -23,6 +25,21 @@ public class Block{
 
     public Block(int x, int w, int h) {
         this(x,0,w,h);
+    }
+
+
+    public void draw(Canvas canvas) {
+        Paint paint = new Paint();
+        paint.setColor(Color.GREEN);
+        int left = x;
+        int right = x + w;
+        int top = canvas.getHeight() - y - h;
+        int bottom = canvas.getHeight() -y;
+        canvas.drawRect(left, top, right, bottom, paint);
+    }
+
+    public void physTick() {
+
     }
 
     public void setView(View view) {
@@ -65,13 +82,11 @@ public class Block{
         this.h = h;
     }
 
-    public void draw(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(Color.GREEN);
-        int left = x;
-        int right = x + w;
-        int top = canvas.getHeight() - y - h;
-        int bottom = canvas.getHeight() -y;
-        canvas.drawRect(left, top, right, bottom, paint);
+    public Level getParent() {
+        return parent;
+    }
+
+    public void setParent(Level parent) {
+        this.parent = parent;
     }
 }

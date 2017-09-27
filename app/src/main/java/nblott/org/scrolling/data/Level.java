@@ -23,11 +23,16 @@ public class Level {
         blockList = new ArrayList<>();
         ids = new ArrayList<>();
         for (Block block : blocks) {
+            block.setParent(this);
             blockList.add(block);
             ids.add(IdGen.getNext());
         }
         this.bgCol = bgCol;
-        player = new Player(playerDrawable, 0,0,20,20);
+        player = new Player(this, playerDrawable, 250,170,50,50);
+    }
+
+    public void physTick(Canvas canvas){
+        player.physTick(canvas);
     }
 
     //start drawing
