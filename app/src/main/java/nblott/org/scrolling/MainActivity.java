@@ -30,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         SurfaceView surface = (SurfaceView) findViewById(R.id.surface);
         //Hardcoded debugging level
-        current = new Level(ContextCompat.getColor(this, R.color.levelBG),getResources().getDrawable(R.drawable.player, null), new Block[]{new Block(500,0,100,100)});
+        Block floor;    //TODO
+
+        current = new Level(ContextCompat.getColor(this, R.color.levelBG),getResources().getDrawable(R.drawable.player, null), new Block[]{new Block(350,0,100,100, null)});
 
         surface.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
@@ -61,9 +63,7 @@ public class MainActivity extends AppCompatActivity {
         for (Block block : current.blockList) {
             block.setX(block.getX() - 3);
         }
-
         Canvas canvas = holder.lockCanvas();
-
         current.physTick(canvas);
         current.draw(canvas);
         holder.unlockCanvasAndPost(canvas);

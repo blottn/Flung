@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 
 /**
@@ -15,27 +16,37 @@ public class Block{
     private int x, y ,w ,h;
     private View view;
     private Level parent;
-
-    public Block(int x, int y, int w, int h) {
+    private Drawable image;
+    public Block(int x, int y, int w, int h, Drawable image) {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
+        this.image = image;
     }
 
-    public Block(int x, int w, int h) {
-        this(x,0,w,h);
+    public Block(int x, int w, int h, Drawable image) {
+        this(x,0,w,h, image);
     }
-
 
     public void draw(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(Color.GREEN);
-        int left = x;
-        int right = x + w;
-        int top = canvas.getHeight() - y - h;
-        int bottom = canvas.getHeight() -y;
-        canvas.drawRect(left, top, right, bottom, paint);
+        if (image == null) {
+            Paint paint = new Paint();
+            paint.setColor(Color.GREEN);
+            int left = x;
+            int right = x + w;
+            int top = canvas.getHeight() - y - h;
+            int bottom = canvas.getHeight() - y;
+            canvas.drawRect(left, top, right, bottom, paint);
+        }
+        else {
+            int left = x;
+            int right = x + w;
+            int top = canvas.getHeight() - y - h;
+            int bottom = canvas.getHeight() - y;
+            image.setBounds(left, top, right, bottom);
+            image.draw(canvas);
+        }
     }
 
     public void physTick() {
