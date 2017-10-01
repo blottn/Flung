@@ -14,6 +14,7 @@ import android.view.View;
 public class Block{
 
     private int x, y ,w ,h;
+    private int left,right,top,bottom;
     private View view;
     private Level parent;
     private Drawable image;
@@ -30,20 +31,16 @@ public class Block{
     }
 
     public void draw(Canvas canvas) {
+        left = x;
+        right = x + w;
+        top = canvas.getHeight() - y - h;
+        bottom = canvas.getHeight() - y;
         if (image == null) {
             Paint paint = new Paint();
             paint.setColor(Color.GREEN);
-            int left = x;
-            int right = x + w;
-            int top = canvas.getHeight() - y - h;
-            int bottom = canvas.getHeight() - y;
             canvas.drawRect(left, top, right, bottom, paint);
         }
         else {
-            int left = x;
-            int right = x + w;
-            int top = canvas.getHeight() - y - h;
-            int bottom = canvas.getHeight() - y;
             image.setBounds(left, top, right, bottom);
             image.draw(canvas);
         }
@@ -93,8 +90,25 @@ public class Block{
         this.h = h;
     }
 
+    public int getCenterX() {
+        return new Rect(left,top,right,bottom).centerX();
+    }
+
+    public int getCenterY() {
+        return new Rect(left,top,right,bottom).centerY();
+    }
+
+
     public Level getParent() {
         return parent;
+    }
+
+    public boolean contains(Vector pos) {
+        return new Rect(left,top,right,bottom).contains((int) pos.getX(),(int) pos.getY());
+    }
+
+    public boolean contains(Rect rect) {
+        return new Rect(left,top,right,bottom).intersect(rect);
     }
 
     public void setParent(Level parent) {

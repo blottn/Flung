@@ -7,22 +7,14 @@
     android:layout_height="match_parent"
     tools:context="nblott.org.scrolling.MainActivity">
 
-    <ImageView
-        android:id="@+id/grass"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/grass"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-
     <SurfaceView
         android:id="@+id/surface"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/grass"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="0dp"/>
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="0dp"/>
 </android.support.constraint.ConstraintLayout>

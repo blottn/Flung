@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         //Hardcoded debugging level
         Block floor;    //TODO
 
-        current = new Level(ContextCompat.getColor(this, R.color.levelBG),getResources().getDrawable(R.drawable.player, null), new Block[]{new Block(350,0,100,100, null)});
+        current = new Level(ContextCompat.getColor(this, R.color.levelBG),getResources().getDrawable(R.drawable.player, null), new Block[]{new Block(400,0,100,100, null)});
 
         surface.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private void tick(SurfaceHolder holder) {
         // hardcoded sliding
         for (Block block : current.blockList) {
-            block.setX(block.getX() - 3);
+//            block.setX(block.getX() - 3);
         }
         Canvas canvas = holder.lockCanvas();
         current.physTick(canvas);
