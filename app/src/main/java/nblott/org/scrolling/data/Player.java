@@ -15,6 +15,7 @@ public class Player {
     private Drawable drawable;
 
     private static final double BOUNCE_FACTOR = 0.4;
+    private static final double VEL_CUT_OFF = 0.3;
 
     private int x,y,r;
     private Vector vel;
@@ -47,18 +48,34 @@ public class Player {
             paint.setColor(Color.BLACK);
             canvas.drawRect(future,paint);
             if (block.contains(future)) {
-                int relX = future.centerX() - block.getCenterX();
-                int relY = future.centerY() - block.getCenterY();
+                // dont use future use the current instead
+                Rect current = new Rect(x - r,y + r, x + r, y - r);
+
+                int relX = current.centerX() - block.getCenterX();
+                int relY = current.centerY() - block.getCenterY();
+                
                 if ((relX < -relY && relX > relY) || (relX > -relY && relX < relY)) {
-                    vel.setY((-vel.getY()) * BOUNCE_FACTOR);
+                    // y collide
+                    collideY(block, canvas);
                 }
                 else {
+                    // x collide
                     vel.setX((-vel.getX()) * BOUNCE_FACTOR);
                 }
             }
             else {
             }
         }
+    }
+
+    private void collideY(Block block, Canvas canvas) {
+        if (Math.abs(vel.getY()) < VEL_CUT_OFF) {
+            vel.setY(0);
+        }
+        else {
+            vel.setY((-vel.getY()) * BOUNCE_FACTOR);
+        }
+        this.y = block.getH()+ block.getY() + r;
     }
 
 
