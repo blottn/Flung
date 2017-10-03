@@ -17,6 +17,7 @@ public class Level {
     public List<Block> blockList;
     public List<Integer> ids;
     private Player player;
+    private Player[] debugs;
     private int bgCol;
 
     public Level(int bgCol, Drawable playerDrawable, Block... blocks) {
@@ -28,11 +29,21 @@ public class Level {
             ids.add(IdGen.getNext());
         }
         this.bgCol = bgCol;
-        player = new Player(this, playerDrawable, 300,300,25);
+        player = new Player(this, playerDrawable, 400,300,25);
+        debugs = new Player[] {
+                new Player(this, playerDrawable, 300, 300,25),
+                new Player(this, playerDrawable, 400, 300,25),
+                new Player(this, playerDrawable, 500, 300,25),
+                new Player(this, playerDrawable, 600, 300,25),
+                new Player(this, playerDrawable, 700, 300,25),
+        };
     }
 
     public void physTick(Canvas canvas){
         player.physTick(canvas);
+//        for (Player player :debugs) {
+//            player.physTick(canvas);
+//        }
     }
 
     //start drawing
@@ -41,6 +52,9 @@ public class Level {
         for (Block block : blockList) {
             block.draw(canvas);
         }
+//        for (Player player : debugs) {
+//            player.draw(canvas);
+//        }
         player.draw(canvas);
     }
 

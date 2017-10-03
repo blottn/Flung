@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         //Hardcoded debugging level
         Block floor;    //TODO
 
-        current = new Level(ContextCompat.getColor(this, R.color.levelBG),getResources().getDrawable(R.drawable.player, null), new Block[]{new Block(400,0,100,100, null)});
+        current = new Level(ContextCompat.getColor(this, R.color.levelBG),getResources().getDrawable(R.drawable.player, null), new Block[]{new Block(300,0,50, null)});
 
         surface.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override

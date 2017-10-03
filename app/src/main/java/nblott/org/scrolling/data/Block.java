@@ -18,7 +18,13 @@ public class Block{
     private View view;
     private Level parent;
     private Drawable image;
-    public Block(int x, int y, int w, int h, Drawable image) {
+
+    public Block(int x,int y,int dim,Drawable image) {
+        this(x,y,dim,dim,image);
+    }
+
+
+    private Block(int x, int y, int w, int h, Drawable image) {
         this.x = x;
         this.y = y;
         this.w = w;
@@ -26,9 +32,9 @@ public class Block{
         this.image = image;
     }
 
-    public Block(int x, int w, int h, Drawable image) {
-        this(x,0,w,h, image);
-    }
+//    private Block(int x, int w, int h, Drawable image) {
+//        this(x,0,w,h, image);
+//    }
 
     public void draw(Canvas canvas) {
         left = x;

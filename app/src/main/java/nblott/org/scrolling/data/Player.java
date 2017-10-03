@@ -14,7 +14,8 @@ public class Player {
 
     private Drawable drawable;
 
-    private static final double BOUNCE_FACTOR = 0.4;
+    private static final double BOUNCE_FACTOR_Y = 0.4;
+    private static final double BOUNCE_FACTOR_X = 0.92;
     private static final double VEL_CUT_OFF = 0.3;
 
     private int x,y,r;
@@ -25,7 +26,7 @@ public class Player {
         this.x = x;
         this.y = y;
         this.r = r;
-        this.vel = new Vector(6,14);
+        this.vel = new Vector(0,0);
         this.parent = parent;
     }
 
@@ -43,24 +44,19 @@ public class Player {
         for (Block block : parent.blockList) {
             //check for all corners if any overlap.
             Rect future = new Rect(futureLeft,canvas.getHeight() - futureTop,futureRight, canvas.getHeight() - futureBottom);
-//            System.out.println(future);
+
             Paint paint = new Paint();
             paint.setColor(Color.BLACK);
             canvas.drawRect(future,paint);
             if (block.contains(future)) {
-                // dont use future use the current instead
                 Rect current = new Rect(x - r,y + r, x + r, y - r);
-
-                int relX = current.centerX() - block.getCenterX();
-                int relY = current.centerY() - block.getCenterY();
-                
-                if ((relX < -relY && relX > relY) || (relX > -relY && relX < relY)) {
-                    // y collide
-                    collideY(block, canvas);
-                }
-                else {
-                    // x collide
-                    vel.setX((-vel.getX()) * BOUNCE_FACTOR);
+                int relX = x - block.getCenterX();
+                int relY = y - (canvas.getHeight() - block.getCenterY());
+                System.out.println(Math.abs(relX) + " " + Math.abs(relY));
+                if (Math.abs(relX) > Math.abs(relY)) {  //TODO this only works for squares!!!
+                    collideX();
+                } else {
+                    collideY();
                 }
             }
             else {
@@ -68,14 +64,31 @@ public class Player {
         }
     }
 
-    private void collideY(Block block, Canvas canvas) {
+    private void collideY() {
         if (Math.abs(vel.getY()) < VEL_CUT_OFF) {
             vel.setY(0);
         }
         else {
-            vel.setY((-vel.getY()) * BOUNCE_FACTOR);
+            vel.setY((-vel.getY()) * BOUNCE_FACTOR_Y);
         }
-        this.y = block.getH()+ block.getY() + r;
+//        vel.setX(vel.getX() * BOUNCE_FACTOR_X);
+//        if (Math.abs(vel.getX()) < VEL_CUT_OFF) {
+//            vel.setX(0);
+//        }
+    }
+
+
+    private void collideX() {
+        if (Math.abs(vel.getX()) < VEL_CUT_OFF) {
+            vel.setX(0);
+        }
+        else {
+            vel.setX((-vel.getX()) * BOUNCE_FACTOR_X);
+        }
+//        vel.setY(vel.getY() * BOUNCE_FACTOR_Y);
+//        if (Math.abs(vel.getY()) < VEL_CUT_OFF) {
+//            vel.setY(0);
+//        }
     }
 
 
@@ -101,9 +114,10 @@ public class Player {
                 vel.setY(0);
             }
         } else {// y == 0 ie is on ground
-            if (vel.getX() > 0) {
-                vel.setX(vel.getX() - 1);
+            if (Math.abs(vel.getX()) > 0) {
+                vel.setX(vel.getX() * BOUNCE_FACTOR_X);
             }
+
         }
     }
 
