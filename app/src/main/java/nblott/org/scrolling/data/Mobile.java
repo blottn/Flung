@@ -14,7 +14,13 @@ public interface Mobile {
     // Gets the current velocity vector
     Vector getVelocity();
 
+    Vector getCenter();
+
+    int getWidth();
+    int getHeight();
+
     //implemented to be performed when collisions occur
     void collideX();
     void collideY();
+
 }

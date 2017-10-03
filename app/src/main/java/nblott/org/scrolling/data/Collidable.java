@@ -12,7 +12,7 @@ public interface Collidable {
     *   Should return true if the player object is about to impact on it.   //TODO add mobile interface to abstract this slightly
      */
 
-    boolean isInPath(Player player, Canvas canvas);
+    boolean isInPath(Mobile mobile, Canvas canvas);
     
     /*
     * Called when an object collides with this Collidable.
@@ -22,5 +22,5 @@ public interface Collidable {
     * }
      */
     
-    void onCollided(Player player, Canvas canvas);
+    void onCollided(Mobile mobile, Canvas canvas);
 }

@@ -118,20 +118,22 @@ public class Block implements Collidable {
     }
 
     @Override
-    public boolean isInPath(Player player, Canvas canvas) {
-        Vector playerVel = player.getVelocity();
+    public boolean isInPath(Mobile mobile, Canvas canvas) {
+        Vector playerVel = mobile.getVelocity();
 
-        int futureLeft = player.getX() + (int) playerVel.getX() - player.getR();
-        int futureBottom = player.getY() + (int) playerVel.getY() - player.getR();
-        int futureRight = player.getX() + (int) playerVel.getX() + player.getR();
-        int futureTop = player.getY() + (int) playerVel.getY() + player.getR();
+        Vector center = mobile.getCenter();
+
+        int futureLeft = (int) center.getX() + (int) playerVel.getX() - mobile.getWidth();
+        int futureBottom = (int) center.getY() + (int) playerVel.getY() - mobile.getHeight();
+        int futureRight = (int) center.getX() + (int) playerVel.getX() + mobile.getWidth();
+        int futureTop = (int) center.getY() + (int) playerVel.getY() + mobile.getHeight();
 
         Rect future = new Rect(futureLeft, canvas.getHeight() - futureTop,futureRight, canvas.getHeight() - futureBottom);
         return new Rect(left,top,right,bottom).intersect(future);
     }
 
     @Override
-    public void onCollided(Player player, Canvas canvas) {
+    public void onCollided(Mobile player, Canvas canvas) {
         int relX = x - this.getCenterX();
         int relY = y - (canvas.getHeight() - this.getCenterY());
         if (Math.abs(relX) > Math.abs(relY)) {  //TODO this only works for squares!!!

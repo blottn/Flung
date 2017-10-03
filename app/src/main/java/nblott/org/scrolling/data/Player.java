@@ -51,10 +51,6 @@ public class Player implements Mobile {
         else {
             vel.setY((-vel.getY()) * BOUNCE_FACTOR_Y);
         }
-//        vel.setX(vel.getX() * BOUNCE_FACTOR_X);
-//        if (Math.abs(vel.getX()) < VEL_CUT_OFF) {
-//            vel.setX(0);
-//        }
     }
 
     public void collideX() {
@@ -64,10 +60,6 @@ public class Player implements Mobile {
         else {
             vel.setX((-vel.getX()) * BOUNCE_FACTOR_X);
         }
-//        vel.setY(vel.getY() * BOUNCE_FACTOR_Y);
-//        if (Math.abs(vel.getY()) < VEL_CUT_OFF) {
-//            vel.setY(0);
-//        }
     }
 
 
@@ -145,5 +137,20 @@ public class Player implements Mobile {
     @Override
     public Vector getVelocity() {
         return this.vel;
+    }
+
+    @Override
+    public Vector getCenter() {
+        return new Vector(x,y);
+    }
+
+    @Override
+    public int getWidth() {
+        return this.getR();
+    }
+
+    @Override
+    public int getHeight() {
+        return this.getR();
     }
 }
