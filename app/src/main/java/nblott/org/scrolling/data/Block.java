@@ -119,7 +119,7 @@ public class Block implements Collidable {
 
     @Override
     public boolean isInPath(Player player, Canvas canvas) {
-        Vector playerVel = player.getVel();
+        Vector playerVel = player.getVelocity();
 
         int futureLeft = player.getX() + (int) playerVel.getX() - player.getR();
         int futureBottom = player.getY() + (int) playerVel.getY() - player.getR();
@@ -131,7 +131,7 @@ public class Block implements Collidable {
     }
 
     @Override
-    public void collided(Player player, Canvas canvas) {
+    public void onCollided(Player player, Canvas canvas) {
         int relX = x - this.getCenterX();
         int relY = y - (canvas.getHeight() - this.getCenterY());
         if (Math.abs(relX) > Math.abs(relY)) {  //TODO this only works for squares!!!

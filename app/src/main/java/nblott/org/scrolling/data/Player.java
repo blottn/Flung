@@ -1,8 +1,6 @@
 package nblott.org.scrolling.data;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
@@ -10,7 +8,7 @@ import android.graphics.drawable.Drawable;
  * Created by Nick on 26/09/2017.
  */
 
-public class Player {
+public class Player implements Mobile {
 
     private Drawable drawable;
 
@@ -40,7 +38,7 @@ public class Player {
 
             if (block.isInPath(this, canvas)) {
 
-                block.collided(this,canvas);
+                block.onCollided(this,canvas);
 
             }
         }
@@ -58,7 +56,6 @@ public class Player {
 //            vel.setX(0);
 //        }
     }
-
 
     public void collideX() {
         if (Math.abs(vel.getX()) < VEL_CUT_OFF) {
@@ -136,9 +133,17 @@ public class Player {
         this.r = r;
     }
 
+    @Override
+    public Rect getFuture() {
+        int futureLeft = this.getX() + (int) getVelocity().getX() - this.getR();
+        int futureBottom = this.getY() + (int) getVelocity().getY() - this.getR();
+        int futureRight = this.getX() + (int) getVelocity().getX() + this.getR();
+        int futureTop = this.getY() + (int) getVelocity().getY() + this.getR();
+        return new Rect(futureLeft, futureTop, futureRight, futureBottom);
+    }
 
-
-    public Vector getVel() {
+    @Override
+    public Vector getVelocity() {
         return this.vel;
     }
 }

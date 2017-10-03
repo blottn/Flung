@@ -8,6 +8,19 @@ import android.graphics.Canvas;
 
 public interface Collidable {
 
+    /*
+    *   Should return true if the player object is about to impact on it.   //TODO add mobile interface to abstract this slightly
+     */
+
     boolean isInPath(Player player, Canvas canvas);
-    void collided(Player player, Canvas canvas);
+    
+    /*
+    * Called when an object collides with this Collidable.
+    * Generally called like this:
+    * if (thing.isInPath()) {
+    *       thing.onCollided();
+    * }
+     */
+    
+    void onCollided(Player player, Canvas canvas);
 }
