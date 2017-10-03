@@ -30,7 +30,7 @@ public class Player implements Mobile {
 
     public void physTick(Canvas canvas) {
         adv(canvas);
-        standard(canvas);
+        ground(canvas);
     }
 
     private void adv(Canvas canvas) {
@@ -63,7 +63,7 @@ public class Player implements Mobile {
     }
 
 
-    private void standard(Canvas canvas) {
+    private void ground(Canvas canvas) {
         y = y + (int) vel.getY();
         x = x + (int) vel.getX();
 
