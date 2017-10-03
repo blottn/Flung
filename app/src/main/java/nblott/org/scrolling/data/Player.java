@@ -36,35 +36,17 @@ public class Player {
     }
 
     private void adv(Canvas canvas) {
-        int futureLeft = x + (int) vel.getX() - r;
-        int futureBottom = y + (int) vel.getY() - r;
-        int futureRight = x + (int) vel.getX() + r;
-        int futureTop = y + (int) vel.getY() + r;
-
         for (Block block : parent.blockList) {
-            //check for all corners if any overlap.
-            Rect future = new Rect(futureLeft,canvas.getHeight() - futureTop,futureRight, canvas.getHeight() - futureBottom);
 
-            Paint paint = new Paint();
-            paint.setColor(Color.BLACK);
-            canvas.drawRect(future,paint);
-            if (block.contains(future)) {
-                Rect current = new Rect(x - r,y + r, x + r, y - r);
-                int relX = x - block.getCenterX();
-                int relY = y - (canvas.getHeight() - block.getCenterY());
-                System.out.println(Math.abs(relX) + " " + Math.abs(relY));
-                if (Math.abs(relX) > Math.abs(relY)) {  //TODO this only works for squares!!!
-                    collideX();
-                } else {
-                    collideY();
-                }
-            }
-            else {
+            if (block.isInPath(this, canvas)) {
+
+                block.collided(this,canvas);
+
             }
         }
     }
 
-    private void collideY() {
+    public void collideY() {
         if (Math.abs(vel.getY()) < VEL_CUT_OFF) {
             vel.setY(0);
         }
@@ -78,7 +60,7 @@ public class Player {
     }
 
 
-    private void collideX() {
+    public void collideX() {
         if (Math.abs(vel.getX()) < VEL_CUT_OFF) {
             vel.setX(0);
         }
@@ -138,11 +120,25 @@ public class Player {
         return y;
     }
 
+    public int getR() {
+        return r;
+    }
+
     public void setX(int x) {
         this.x = x;
     }
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public void setR(int r) {
+        this.r = r;
+    }
+
+
+
+    public Vector getVel() {
+        return this.vel;
     }
 }

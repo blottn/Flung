@@ -11,7 +11,7 @@ import android.view.View;
  * Created by Nick on 13/09/2017.
  */
 
-public class Block{
+public class Block implements Collidable {
 
     private int x, y ,w ,h;
     private int left,right,top,bottom;
@@ -31,10 +31,6 @@ public class Block{
         this.h = h;
         this.image = image;
     }
-
-//    private Block(int x, int w, int h, Drawable image) {
-//        this(x,0,w,h, image);
-//    }
 
     public void draw(Canvas canvas) {
         left = x;
@@ -119,5 +115,29 @@ public class Block{
 
     public void setParent(Level parent) {
         this.parent = parent;
+    }
+
+    @Override
+    public boolean isInPath(Player player, Canvas canvas) {
+        Vector playerVel = player.getVel();
+
+        int futureLeft = player.getX() + (int) playerVel.getX() - player.getR();
+        int futureBottom = player.getY() + (int) playerVel.getY() - player.getR();
+        int futureRight = player.getX() + (int) playerVel.getX() + player.getR();
+        int futureTop = player.getY() + (int) playerVel.getY() + player.getR();
+
+        Rect future = new Rect(futureLeft, canvas.getHeight() - futureTop,futureRight, canvas.getHeight() - futureBottom);
+        return new Rect(left,top,right,bottom).intersect(future);
+    }
+
+    @Override
+    public void collided(Player player, Canvas canvas) {
+        int relX = x - this.getCenterX();
+        int relY = y - (canvas.getHeight() - this.getCenterY());
+        if (Math.abs(relX) > Math.abs(relY)) {  //TODO this only works for squares!!!
+            player.collideX();
+        } else {
+            player.collideY();
+        }
     }
 }
