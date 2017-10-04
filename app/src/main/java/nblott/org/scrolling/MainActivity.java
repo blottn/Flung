@@ -22,30 +22,41 @@ import nblott.org.scrolling.data.Level;
 
 public class MainActivity extends AppCompatActivity {
 
+    final Handler mHandler = new Handler();
+    SurfaceView surface;
     ConstraintLayout screen;
     Level current;
+
+    Runnable ticker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SurfaceView surface = (SurfaceView) findViewById(R.id.surface);
+        surface = (SurfaceView) findViewById(R.id.surface);
         //Hardcoded debugging level
         Block floor;    //TODO
-
         current = new Level(ContextCompat.getColor(this, R.color.levelBG),getResources().getDrawable(R.drawable.player, null), new Block[]{new Block(375,0,50, null)});
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
 
         surface.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(final SurfaceHolder holder) {
                 // ready to start drawing. Launch ticker
-                final Handler mHandler = new Handler();
-                mHandler.post(new Runnable() {
+                ticker = new Runnable() {
                     @Override
                     public void run() {
                         tick(holder);
-                        mHandler.post(this);
+                        mHandler.post(ticker);
                     }
-                });
+                };
+                mHandler.post(ticker);
             }
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
@@ -59,13 +70,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void tick(SurfaceHolder holder) {
-        // hardcoded sliding
-        for (Block block : current.blockList) {
-//            block.setX(block.getX() - 3);
-        }
         Canvas canvas = holder.lockCanvas();
         current.physTick(canvas);
         current.draw(canvas);
         holder.unlockCanvasAndPost(canvas);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mHandler.removeCallbacks(ticker);
     }
 }
