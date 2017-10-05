@@ -9,6 +9,7 @@ import android.view.View;
 
 /**
  * Created by Nick on 13/09/2017.
+ * Class describing a block which can be drawn and impacted on by the player/ other objects
  */
 
 public class Block implements Collidable {
@@ -32,7 +33,7 @@ public class Block implements Collidable {
         this.image = image;
     }
 
-    public void draw(Canvas canvas) {
+    void draw(Canvas canvas) {
         left = x;
         right = x + w;
         top = canvas.getHeight() - y - h;
@@ -48,72 +49,15 @@ public class Block implements Collidable {
         }
     }
 
-    public void physTick() {
-
-    }
-
-    public void setView(View view) {
-        this.view = view;
-    }
-
-    public View getView() {
-        return view;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getW() {
-        return w;
-    }
-
-    public void setW(int w) {
-        this.w = w;
-    }
-
-    public int getH() {
-        return h;
-    }
-
-    public void setH(int h) {
-        this.h = h;
-    }
-
-    public int getCenterX() {
+    private int getCenterX() {
         return new Rect(left,top,right,bottom).centerX();
     }
 
-    public int getCenterY() {
+    private int getCenterY() {
         return new Rect(left,top,right,bottom).centerY();
     }
 
-
-    public Level getParent() {
-        return parent;
-    }
-
-    public boolean contains(Vector pos) {
-        return new Rect(left,top,right,bottom).contains((int) pos.getX(),(int) pos.getY());
-    }
-
-    public boolean contains(Rect rect) {
-        return new Rect(left,top,right,bottom).intersect(rect);
-    }
-
-    public void setParent(Level parent) {
+    void setParent(Level parent) {
         this.parent = parent;
     }
 
@@ -136,7 +80,7 @@ public class Block implements Collidable {
     public void onCollided(Mobile player, Canvas canvas) {
         int relX = x - this.getCenterX();
         int relY = y - (canvas.getHeight() - this.getCenterY());
-        if (Math.abs(relX) > Math.abs(relY)) {  //TODO this only works for squares!!!
+        if (Math.abs(relX) > Math.abs(relY)) {
             player.collideX();
         } else {
             player.collideY();
