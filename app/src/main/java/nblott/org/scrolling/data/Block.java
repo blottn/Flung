@@ -66,7 +66,7 @@ public class Block implements Collidable {
         Vector playerVel = mobile.getVelocity();
 
         Vector center = mobile.getCenter();
-
+        //TODO fix this
         int futureLeft = (int) center.getX() + (int) playerVel.getX() - mobile.getWidth();
         int futureBottom = (int) center.getY() + (int) playerVel.getY() - mobile.getHeight();
         int futureRight = (int) center.getX() + (int) playerVel.getX() + mobile.getWidth();
