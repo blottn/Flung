@@ -1,4 +1,4 @@
-package nblott.org.scrolling.data;
+package nblott.org.scrolling.model;
 
 /**
  * Created by Nick on 27/09/2017.

@@ -1,12 +1,13 @@
-package nblott.org.scrolling.data;
+package nblott.org.scrolling.model;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import nblott.org.scrolling.util.IdGen;
 
 /**
  * Created by Nick on 13/09/2017.

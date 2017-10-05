@@ -1,4 +1,4 @@
-package nblott.org.scrolling.data;
+package nblott.org.scrolling.model;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -82,6 +82,7 @@ public class Block implements Collidable {
         int relY = y - (canvas.getHeight() - this.getCenterY());
         if (Math.abs(relX) > Math.abs(relY)) {
             player.collideX();
+            //if left, move to left side
         } else {
             player.collideY();
         }

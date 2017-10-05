@@ -1,4 +1,4 @@
-package nblott.org.scrolling.data;
+package nblott.org.scrolling.model;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -127,5 +127,17 @@ public class Player implements Mobile {
     @Override
     public int getHeight() {
         return top - bottom;
+    }
+
+    @Override
+    public void translateX(int offset) {
+        this.left += offset;
+        this.right += offset;
+    }
+
+    @Override
+    public void translateY(int offset) {
+        this.top += offset;
+        this.bottom += offset;
     }
 }

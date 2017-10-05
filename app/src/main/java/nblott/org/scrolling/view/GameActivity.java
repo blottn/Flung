@@ -1,4 +1,4 @@
-package nblott.org.scrolling;
+package nblott.org.scrolling.view;
 
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import nblott.org.scrolling.R;
-import nblott.org.scrolling.data.Block;
-import nblott.org.scrolling.data.Level;
+import nblott.org.scrolling.model.Block;
+import nblott.org.scrolling.model.Level;
 
 /**
  * Created by Nick on 04/10/2017.

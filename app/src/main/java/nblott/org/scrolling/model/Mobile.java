@@ -1,4 +1,4 @@
-package nblott.org.scrolling.data;
+package nblott.org.scrolling.model;
 
 import android.graphics.Rect;
 
@@ -7,21 +7,24 @@ import android.graphics.Rect;
  * Interface to describe movable item on the screen
  */
 
-interface Mobile {
+public interface Mobile {
 
     //   Returns a Rect descrbing where this object will be in one tick
     Rect getFuture();
 
     // Gets the current velocity vector
-    Vector getVelocity();
+    public Vector getVelocity();
 
-    Vector getCenter();
+    public Vector getCenter();
 
-    int getWidth();
-    int getHeight();
+    public int getWidth();
+    public int getHeight();
+
+    public void translateX(int offset);
+    public void translateY(int offset);
 
     // Implemented to be performed when collisions occur
-    void collideX();
-    void collideY();
+    public void collideX();
+    public void collideY();
 
 }
