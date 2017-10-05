@@ -27,6 +27,7 @@ public class GameActivity extends AppCompatActivity {
 
     Runnable ticker;
 
+    private static long DEBUG_TIME = 0;
 
 
     @Override
@@ -51,10 +52,10 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         tick(holder);
-                        mHandler.post(ticker);
+                        mHandler.postDelayed(ticker, DEBUG_TIME);
                     }
                 };
-                mHandler.post(ticker);
+                mHandler.postDelayed(ticker, DEBUG_TIME);
             }
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {

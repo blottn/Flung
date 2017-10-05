@@ -14,7 +14,7 @@ public class Player implements Mobile {
 
     private static final double BOUNCE_FACTOR_Y = 0.4;
     private static final double BOUNCE_FACTOR_X = 0.92;
-    private static final double VEL_CUT_OFF = 0.3;
+    private static final double VEL_CUT_OFF = 1.3;
 
     private int left,top,right,bottom;
 
@@ -36,15 +36,33 @@ public class Player implements Mobile {
 
     public void physTick(Canvas canvas) {
         adv(canvas);
-        ground(canvas);
+//        ground(canvas);
     }
 
     private void adv(Canvas canvas) {
+        boolean collidedThisTick = false;
         for (Block block : parent.blockList) {
             if (block.isInPath(this, canvas)) {
                 block.onCollided(this,canvas);
+                collidedThisTick = true;
             }
         }
+        if (floating(canvas)) {
+            vel.setY(vel.getY() - 2);
+        }
+        top += vel.getY();
+        bottom += vel.getY();
+        right += vel.getX();
+        left += vel.getX();
+    }
+
+    private boolean floating(Canvas canvas) {
+        for (Block block : parent.blockList) {
+            if (this.bottom == canvas.getHeight() - block.getRect().top) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void collideY() {
@@ -88,6 +106,7 @@ public class Player implements Mobile {
             top = top - bottom;
             bottom = 0;
         } else if (bottom > 0) {
+            //needs a check to ensure not above anything
             vel.setY(vel.getY() - 2);
             if (vel.getY() < 0.5 && vel.getY() > -0.5) {
                 vel.setY(0);
@@ -130,6 +149,11 @@ public class Player implements Mobile {
     }
 
     @Override
+    public Rect getRect() {
+        return new Rect(left,top,right,bottom);
+    }
+
+    @Override
     public void translateX(int offset) {
         this.left += offset;
         this.right += offset;
@@ -137,6 +161,7 @@ public class Player implements Mobile {
 
     @Override
     public void translateY(int offset) {
+
         this.top += offset;
         this.bottom += offset;
     }

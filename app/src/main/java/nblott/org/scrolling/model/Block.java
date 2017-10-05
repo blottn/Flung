@@ -66,25 +66,46 @@ public class Block implements Collidable {
         Vector playerVel = mobile.getVelocity();
 
         Vector center = mobile.getCenter();
+        Rect box = mobile.getRect();
         //TODO fix this
-        int futureLeft = (int) center.getX() + (int) playerVel.getX() - mobile.getWidth();
-        int futureBottom = (int) center.getY() + (int) playerVel.getY() - mobile.getHeight();
-        int futureRight = (int) center.getX() + (int) playerVel.getX() + mobile.getWidth();
-        int futureTop = (int) center.getY() + (int) playerVel.getY() + mobile.getHeight();
+        int futureLeft = box.left + (int) playerVel.getX();
+        int futureBottom = box.bottom + (int) playerVel.getY();
+        int futureRight = box.right + (int) playerVel.getX();
+        int futureTop = box.top + (int) playerVel.getY();
 
         Rect future = new Rect(futureLeft, canvas.getHeight() - futureTop,futureRight, canvas.getHeight() - futureBottom);
         return new Rect(left,top,right,bottom).intersect(future);
     }
 
     @Override
-    public void onCollided(Mobile player, Canvas canvas) {
-        int relX = x - this.getCenterX();
-        int relY = y - (canvas.getHeight() - this.getCenterY());
+    public void onCollided(Mobile mobile, Canvas canvas) {
+        int relX = this.getCenterX() - (int) mobile.getCenter().getX();
+        int relY = - ((canvas.getHeight() - this.getCenterY()) - (int) mobile.getCenter().getY());
+        System.out.println("relY = " + relY);
+        Rect rect = mobile.getRect();
         if (Math.abs(relX) > Math.abs(relY)) {
-            player.collideX();
-            //if left, move to left side
+            mobile.collideX();
+            if (relX < 0) {
+                //left
+//               TODO mobile.translateX(left - rect.right);
+            }
+            else {
+                //right
+//               TODO mobile.translateX(rect.left - right);
+            }
         } else {
-            player.collideY();
+            mobile.collideY();
+            if (relY > 0) {
+                mobile.translateY(-(rect.bottom - (canvas.getHeight() - top)));
+            }
+            else {
+                mobile.translateY(-(rect.top - (canvas.getHeight() - bottom)));
+            }
         }
+    }
+
+    @Override
+    public Rect getRect() {
+        return new Rect(left,top,right,bottom);
     }
 }

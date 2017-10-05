@@ -1,6 +1,7 @@
 package nblott.org.scrolling.model;
 
 import android.graphics.Canvas;
+import android.graphics.Rect;
 
 import nblott.org.scrolling.model.Mobile;
 
@@ -25,4 +26,6 @@ public interface Collidable {
      */
 
     public void onCollided(Mobile mobile, Canvas canvas);
+
+    public Rect getRect();
 }

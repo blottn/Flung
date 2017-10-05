@@ -20,6 +20,8 @@ public interface Mobile {
     public int getWidth();
     public int getHeight();
 
+    public Rect getRect();
+
     public void translateX(int offset);
     public void translateY(int offset);
 
