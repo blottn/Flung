@@ -7,10 +7,6 @@ import android.graphics.drawable.Drawable;
 /**
  * Created by Nick on 26/09/2017.
  */
-/*
-    TODO change implementation to use left right top bottom, this will make it possible to use an egg instead of a circle
- */
-
 
 public class Player implements Mobile {
 
