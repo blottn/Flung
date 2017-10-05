@@ -1,84 +1,37 @@
 package nblott.org.scrolling;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.media.Image;
-import android.os.Handler;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
-import android.support.v4.content.ContextCompat;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.opengl.GLSurfaceView;
-import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+import android.view.SoundEffectConstants;
 import android.view.View;
-import android.widget.ImageView;
-
-import nblott.org.scrolling.data.Block;
-import nblott.org.scrolling.data.Level;
-
+import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
-    final Handler mHandler = new Handler();
-    SurfaceView surface;
-    ConstraintLayout screen;
-    Level current;
-
-    Runnable ticker;
+    private Button start;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        surface = (SurfaceView) findViewById(R.id.surface);
-        //Hardcoded debugging level
-        Block floor;    //TODO
-        current = new Level(ContextCompat.getColor(this, R.color.levelBG),getResources().getDrawable(R.drawable.player, null), new Block[]{new Block(375,0,50, null)});
+        findViews();
+    }
 
+    private void findViews() {
+        start = (Button) findViewById(R.id.start);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-
-        surface.getHolder().addCallback(new SurfaceHolder.Callback() {
+        start.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void surfaceCreated(final SurfaceHolder holder) {
-                // ready to start drawing. Launch ticker
-                ticker = new Runnable() {
-                    @Override
-                    public void run() {
-                        tick(holder);
-                        mHandler.post(ticker);
-                    }
-                };
-                mHandler.post(ticker);
-            }
-            @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-            }
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
+            public void onClick(View v) {
+                v.playSoundEffect(SoundEffectConstants.CLICK);
+                Intent playIntent = new Intent(getApplicationContext(), GameActivity.class);
+                startActivity(playIntent);
+                System.out.println("click");
             }
         });
-
-    }
-
-    private void tick(SurfaceHolder holder) {
-        Canvas canvas = holder.lockCanvas();
-        current.physTick(canvas);
-        current.draw(canvas);
-        holder.unlockCanvasAndPost(canvas);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mHandler.removeCallbacks(ticker);
     }
 }
