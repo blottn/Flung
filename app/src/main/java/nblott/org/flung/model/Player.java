@@ -34,8 +34,6 @@ public class Player implements Mobile {
         this.width = w;
     }
 
-
-
     @Override
     public Rect getFuture() {
         return null;

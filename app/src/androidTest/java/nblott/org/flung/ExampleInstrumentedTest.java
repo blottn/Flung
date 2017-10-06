@@ -1,4 +1,4 @@
-package nblott.org.scrolling;
+package nblott.org.flung;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

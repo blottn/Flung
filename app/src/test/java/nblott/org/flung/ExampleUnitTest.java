@@ -1,4 +1,4 @@
-package nblott.org.scrolling;
+package nblott.org.flung;
 
 import org.junit.Test;
 
