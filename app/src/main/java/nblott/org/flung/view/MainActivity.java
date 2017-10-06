@@ -1,4 +1,4 @@
-package nblott.org.scrolling.view;
+package nblott.org.flung.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,7 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.Button;
 
-import nblott.org.scrolling.R;
+import nblott.org.flung.R;
 
 public class MainActivity extends AppCompatActivity {
 

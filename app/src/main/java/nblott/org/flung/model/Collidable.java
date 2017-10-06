@@ -1,9 +1,9 @@
-package nblott.org.scrolling.model;
+package nblott.org.flung.model;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-import nblott.org.scrolling.model.Mobile;
+import nblott.org.flung.model.Mobile;
 
 /**
  * Created by Nick on 03/10/2017.

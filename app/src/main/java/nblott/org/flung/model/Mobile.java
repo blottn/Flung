@@ -1,4 +1,4 @@
-package nblott.org.scrolling.model;
+package nblott.org.flung.model;
 
 import android.graphics.Rect;
 

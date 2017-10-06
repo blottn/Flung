@@ -1,4 +1,4 @@
-package nblott.org.scrolling.model;
+package nblott.org.flung.model;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -17,34 +17,34 @@ public class Player implements Mobile {
     private static final double VEL_CUT_OFF = 1.3;
 
     private int left,top,right,bottom;
-
+    private int height, width;
     private Vector vel;
     private Level parent;
 
-    public Player(Level parent, Drawable drawable, int x, int y, int h, int w) {
+    public Player(Level parent, Drawable drawable, int x, int y, int h, int w, Vector velocity) {
         this.drawable = drawable;
-        this.vel = new Vector(0,0);
+        this.vel = velocity;
         this.parent = parent;
 
         this.left = x;
         this.bottom = y;
         this.right = x + w;
         this.top = y + h;
+        this.height = h;
+        this.width = w;
     }
 
 
 
     public void physTick(Canvas canvas) {
         adv(canvas);
-//        ground(canvas);
+        ground(canvas);
     }
 
     private void adv(Canvas canvas) {
-        boolean collidedThisTick = false;
         for (Block block : parent.blockList) {
             if (block.isInPath(this, canvas)) {
                 block.onCollided(this,canvas);
-                collidedThisTick = true;
             }
         }
         if (floating(canvas)) {
@@ -85,11 +85,6 @@ public class Player implements Mobile {
 
 
     private void ground(Canvas canvas) {
-        //move forward
-        top = top + (int) vel.getY();
-        bottom = bottom + (int) vel.getY();
-        left = left + (int) vel.getX();
-        right = right + (int) vel.getX();
 
         // check is on ground
         if (bottom < 0) {
@@ -103,7 +98,7 @@ public class Player implements Mobile {
                 vel.setY(0);
             }
             // move to ground
-            top = top - bottom;
+            top = height;
             bottom = 0;
         } else if (bottom > 0) {
             //needs a check to ensure not above anything

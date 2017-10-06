@@ -1,4 +1,4 @@
-package nblott.org.scrolling.util;
+package nblott.org.flung.util;
 
 /**
  * Created by Nick on 25/09/2017.

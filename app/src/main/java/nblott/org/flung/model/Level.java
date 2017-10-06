@@ -1,4 +1,4 @@
-package nblott.org.scrolling.model;
+package nblott.org.flung.model;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable;
 import java.util.ArrayList;
 import java.util.List;
 
-import nblott.org.scrolling.util.IdGen;
+import nblott.org.flung.util.IdGen;
 
 /**
  * Created by Nick on 13/09/2017.
@@ -29,7 +29,7 @@ public class Level {
             ids.add(IdGen.getNext());
         }
         this.bgCol = bgCol;
-        player = new Player(this, playerDrawable, 375,500,50,50);
+        player = new Player(this, playerDrawable, 500,500,50,50, new Vector(5,5));
     }
 
     public void physTick(Canvas canvas){
