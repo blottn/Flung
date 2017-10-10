@@ -6,9 +6,13 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 
 import nblott.org.flung.R;
 import nblott.org.flung.model.Block;
@@ -19,6 +23,8 @@ import nblott.org.flung.model.Level;
  */
 
 public class GameActivity extends AppCompatActivity {
+
+    private GestureDetectorCompat mDetector;
 
     final Handler mHandler = new Handler();
     SurfaceView surface;
@@ -34,8 +40,56 @@ public class GameActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        mDetector = new GestureDetectorCompat(this, new GestureDetector.OnGestureListener() {
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public void onShowPress(MotionEvent e) {
+
+            }
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                return true;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                //do thing
+                System.out.println("fling event");
+                System.out.println(e1.getX() + " " +  e1.getY());
+                System.out.println(e2.getX() + " " +  e2.getY());
+                System.out.println(velocityX);
+                velocityY = -velocityY;
+                velocityY /= 500;
+                velocityX /= 500;
+                current.fling(velocityX, velocityY);
+                return true;
+            }
+        });
         surface = (SurfaceView) findViewById(R.id.surface);
         current = new Level(ContextCompat.getColor(this, R.color.levelBG),getResources().getDrawable(R.drawable.player, null), new Block[]{new Block(375,0,50, null)});
+        surface.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                System.out.println("touch event");
+                mDetector.onTouchEvent(event);
+                return true;
+            }
+        });
     }
 
 

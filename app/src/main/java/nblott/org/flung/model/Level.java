@@ -52,4 +52,8 @@ public class Level {
         canvas.drawPaint(paint);
     }
 
+    public void fling(float velocityX, float velocityY) {
+        player.getVelocity().setX(velocityX);
+        player.getVelocity().setY(velocityY);
+    }
 }
