@@ -30,12 +30,11 @@ public class GameActivity extends AppCompatActivity {
 
     final Handler mHandler = new Handler();
     SurfaceView surface;
-    ConstraintLayout screen;
     Level current;
 
     Runnable ticker;
 
-    private static long DEBUG_TIME = 0;
+    private static long DEBUG_TIME = 16;
 
 
     @Override
@@ -78,7 +77,7 @@ public class GameActivity extends AppCompatActivity {
             }
         });
         surface = (SurfaceView) findViewById(R.id.surface);
-        current = new Level(ContextCompat.getColor(this, R.color.levelBG),getResources().getDrawable(R.drawable.player, null), new Block[]{new Block(375,0,50, null)});
+        current = new Level(ContextCompat.getColor(this, R.color.levelBG),getResources().getDrawable(R.drawable.player, null), new Block[]{new Block(575,500,50, null)});
         surface.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

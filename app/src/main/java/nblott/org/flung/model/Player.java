@@ -12,7 +12,7 @@ public class Player implements Mobile {
 
     private Drawable drawable;
 
-    private static final double BOUNCE_FACTOR_Y = 0.7;
+    private static final double BOUNCE_FACTOR_Y = 0.5;
     private static final double BOUNCE_FACTOR_X = 0.92;
     private static final double VEL_CUT_OFF = 1.3;
     public static final double GRAVITY = 1.5;
@@ -81,6 +81,13 @@ public class Player implements Mobile {
         adv(canvas);
         move();
         ground(canvas);
+        //cut off here?
+        if (Math.abs(vel.getX()) < VEL_CUT_OFF) {
+            vel.setX(0);
+        }
+        if (Math.abs(vel.getY()) < VEL_CUT_OFF) {
+            vel.setY(0);
+        }
     }
 
     private void adv(Canvas canvas) {

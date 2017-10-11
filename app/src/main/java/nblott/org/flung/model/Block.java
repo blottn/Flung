@@ -86,12 +86,12 @@ public class Block implements Collidable {
         if (Math.abs(relX) > Math.abs(relY)) {
             mobile.collideX();
             if (relX < 0) {
-                //left
-//               TODO mobile.translateX(left - rect.right);
+                //right
+                mobile.translateX(rect.left - right);
             }
             else {
-                //right
-//               TODO mobile.translateX(rect.left - right);
+                //left
+                mobile.translateX(left - rect.right );
             }
         } else {
             mobile.collideY();

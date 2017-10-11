@@ -29,7 +29,7 @@ public class Level {
             ids.add(IdGen.getNext());
         }
         this.bgCol = bgCol;
-        player = new Player(this, playerDrawable, 500,500,50,50, new Vector(5,5));
+        player = new Player(this, playerDrawable, 720,600,50,50, new Vector(-10,5));
     }
 
     public void physTick(Canvas canvas){
