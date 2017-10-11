@@ -12,9 +12,10 @@ public class Player implements Mobile {
 
     private Drawable drawable;
 
-    private static final double BOUNCE_FACTOR_Y = 0.4;
+    private static final double BOUNCE_FACTOR_Y = 0.7;
     private static final double BOUNCE_FACTOR_X = 0.92;
     private static final double VEL_CUT_OFF = 1.3;
+    public static final double GRAVITY = 1.5;
 
     private int left,top,right,bottom;
     private int height, width;
@@ -89,7 +90,7 @@ public class Player implements Mobile {
             }
         }
         if (floating(canvas)) {
-            vel.setY(vel.getY() - 2);
+            vel.setY(vel.getY() - GRAVITY);
         }
         else {
             vel.setX(vel.getX() * BOUNCE_FACTOR_X);

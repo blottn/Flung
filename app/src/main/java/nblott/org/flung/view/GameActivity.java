@@ -24,6 +24,8 @@ import nblott.org.flung.model.Level;
 
 public class GameActivity extends AppCompatActivity {
 
+    public static final double FLING_SCALE_FACTOR = 0.005;
+
     private GestureDetectorCompat mDetector;
 
     final Handler mHandler = new Handler();
@@ -68,14 +70,9 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                //do thing
-                System.out.println("fling event");
-                System.out.println(e1.getX() + " " +  e1.getY());
-                System.out.println(e2.getX() + " " +  e2.getY());
-                System.out.println(velocityX);
                 velocityY = -velocityY;
-                velocityY /= 200;
-                velocityX /= 200;
+                velocityY *= FLING_SCALE_FACTOR;
+                velocityX *= FLING_SCALE_FACTOR;
                 current.fling(velocityX, velocityY);
                 return true;
             }
@@ -85,7 +82,6 @@ public class GameActivity extends AppCompatActivity {
         surface.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                System.out.println("touch event");
                 mDetector.onTouchEvent(event);
                 return true;
             }
