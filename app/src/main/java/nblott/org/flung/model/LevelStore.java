@@ -3,8 +3,10 @@ package nblott.org.flung.model;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import nblott.org.flung.R;
 
@@ -36,6 +38,10 @@ public class LevelStore {
         else {
             throw new NoSuchLevelException(name);
         }
+    }
+
+    public Set<String> getLevelNames() {
+        return levels.keySet();
     }
 
 
