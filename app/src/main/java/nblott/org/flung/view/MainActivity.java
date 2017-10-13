@@ -1,6 +1,7 @@
 package nblott.org.flung.view;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.SoundEffectConstants;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 v.playSoundEffect(SoundEffectConstants.CLICK);
                 Intent playIntent = new Intent(getApplicationContext(), GameActivity.class);
+                playIntent.putExtra(GameActivity.KEY_LEVEL_NAME, "DEBUG");
                 startActivity(playIntent);
                 System.out.println("click");
             }

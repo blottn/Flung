@@ -1,5 +1,6 @@
 package nblott.org.flung.view;
 
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import android.view.View;
 import nblott.org.flung.R;
 import nblott.org.flung.model.Block;
 import nblott.org.flung.model.Level;
+import nblott.org.flung.model.LevelStore;
 
 /**
  * Created by Nick on 04/10/2017.
@@ -24,23 +26,29 @@ import nblott.org.flung.model.Level;
 
 public class GameActivity extends AppCompatActivity {
 
+    private static long DEBUG_TIME = 16;
     public static final double FLING_SCALE_FACTOR = 0.005;
+
+    public static final String KEY_LEVEL_NAME = "KEY_LEVEL_NAME";
 
     private GestureDetectorCompat mDetector;
 
     final Handler mHandler = new Handler();
-    SurfaceView surface;
-    Level current;
-
     Runnable ticker;
 
-    private static long DEBUG_TIME = 16;
+    SurfaceView surface;
 
+    LevelStore levelStore;
+    Level current;
+    Intent mIntent;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        init();
+
         mDetector = new GestureDetectorCompat(this, new GestureDetector.OnGestureListener() {
             @Override
             public boolean onDown(MotionEvent e) {
@@ -76,8 +84,10 @@ public class GameActivity extends AppCompatActivity {
                 return true;
             }
         });
-        surface = (SurfaceView) findViewById(R.id.surface);
-        current = new Level(ContextCompat.getColor(this, R.color.levelBG),getResources().getDrawable(R.drawable.player, null), new Block[]{new Block(575,500,50, null)});
+
+        String levelName = mIntent.getExtras().getString(KEY_LEVEL_NAME,"DEBUG");   //default is to load the debug level
+//        current = new Level(ContextCompat.getColor(this, R.color.levelBG),getResources().getDrawable(R.drawable.player, null), new Block[]{new Block(575,500,50, null)});
+        current = levelStore.getLevel(levelName);
         surface.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -85,6 +95,14 @@ public class GameActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private void init() {
+        surface = (SurfaceView) findViewById(R.id.surface);
+        levelStore = new LevelStore(this);
+        mIntent = getIntent();
+
+
     }
 
 

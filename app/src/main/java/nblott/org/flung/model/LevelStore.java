@@ -27,7 +27,7 @@ public class LevelStore {
 
     public void init(Context context) {
         //insert levels here.
-        Level debugLevel = new Level(ContextCompat.getColor(context, R.color.levelBG),context.getResources().getDrawable(R.drawable.player, null), new Block[]{new Block(575,500,50, null)});
+        Level debugLevel = new Level(ContextCompat.getColor(context, R.color.levelBG),context.getResources().getDrawable(R.drawable.player, null), new Block(575,500,50, null), new Block(75,00,50, null));
         levels.put("DEBUG",debugLevel);
     }
 
@@ -44,6 +44,9 @@ public class LevelStore {
         return levels.keySet();
     }
 
+    public int size() {
+        return levels.size();
+    }
 
     public class NoSuchLevelException extends NoSuchElementException {
         String name;
